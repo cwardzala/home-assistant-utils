@@ -1,0 +1,250 @@
+blueprint:
+  name: Zemismart ZMR4 - Zigbee2MQTT
+  description: >
+    Easily setup your Zemismart ZMR4 4-Button Switch using Zigbee2MQTT.
+    Make sure your device's operation_mode is set to "event" (not "command")
+    in the Z2M device settings, otherwise button presses won't fire action events.
+  domain: automation
+  author: YOUR_NAME
+
+  input:
+    zmr4_device:
+      name: Zemismart ZMR4 Device
+      description: >
+        Select your Zemismart ZMR4 device. This must match the device registered
+        in Zigbee2MQTT.
+      selector:
+        device:
+          integration: mqtt
+          multiple: false
+
+    button1_sp:
+      name: Button 1 - Single Press
+      default: []
+      description: Action for single press on Button 1
+      selector:
+        action: {}
+
+    button1_dp:
+      name: Button 1 - Double Press
+      default: []
+      description: Action for double press on Button 1
+      selector:
+        action: {}
+
+    button1_lp:
+      name: Button 1 - Hold
+      default: []
+      description: Action for long press/hold on Button 1
+      selector:
+        action: {}
+
+    button2_sp:
+      name: Button 2 - Single Press
+      default: []
+      description: Action for single press on Button 2
+      selector:
+        action: {}
+
+    button2_dp:
+      name: Button 2 - Double Press
+      default: []
+      description: Action for double press on Button 2
+      selector:
+        action: {}
+
+    button2_lp:
+      name: Button 2 - Hold
+      default: []
+      description: Action for long press/hold on Button 2
+      selector:
+        action: {}
+
+    button3_sp:
+      name: Button 3 - Single Press
+      default: []
+      description: Action for single press on Button 3
+      selector:
+        action: {}
+
+    button3_dp:
+      name: Button 3 - Double Press
+      default: []
+      description: Action for double press on Button 3
+      selector:
+        action: {}
+
+    button3_lp:
+      name: Button 3 - Hold
+      default: []
+      description: Action for long press/hold on Button 3
+      selector:
+        action: {}
+
+    button4_sp:
+      name: Button 4 - Single Press
+      default: []
+      description: Action for single press on Button 4
+      selector:
+        action: {}
+
+    button4_dp:
+      name: Button 4 - Double Press
+      default: []
+      description: Action for double press on Button 4
+      selector:
+        action: {}
+
+    button4_lp:
+      name: Button 4 - Hold
+      default: []
+      description: Action for long press/hold on Button 4
+      selector:
+        action: {}
+
+trigger:
+  - platform: device
+    domain: mqtt
+    device_id: !input zmr4_device
+    type: action
+    subtype: 1_single
+    id: B1
+
+  - platform: device
+    domain: mqtt
+    device_id: !input zmr4_device
+    type: action
+    subtype: 1_double
+    id: B1_DP
+
+  - platform: device
+    domain: mqtt
+    device_id: !input zmr4_device
+    type: action
+    subtype: 1_hold
+    id: B1_LP
+
+  - platform: device
+    domain: mqtt
+    device_id: !input zmr4_device
+    type: action
+    subtype: 2_single
+    id: B2
+
+  - platform: device
+    domain: mqtt
+    device_id: !input zmr4_device
+    type: action
+    subtype: 2_double
+    id: B2_DP
+
+  - platform: device
+    domain: mqtt
+    device_id: !input zmr4_device
+    type: action
+    subtype: 2_hold
+    id: B2_LP
+
+  - platform: device
+    domain: mqtt
+    device_id: !input zmr4_device
+    type: action
+    subtype: 3_single
+    id: B3
+
+  - platform: device
+    domain: mqtt
+    device_id: !input zmr4_device
+    type: action
+    subtype: 3_double
+    id: B3_DP
+
+  - platform: device
+    domain: mqtt
+    device_id: !input zmr4_device
+    type: action
+    subtype: 3_hold
+    id: B3_LP
+
+  - platform: device
+    domain: mqtt
+    device_id: !input zmr4_device
+    type: action
+    subtype: 4_single
+    id: B4
+
+  - platform: device
+    domain: mqtt
+    device_id: !input zmr4_device
+    type: action
+    subtype: 4_double
+    id: B4_DP
+
+  - platform: device
+    domain: mqtt
+    device_id: !input zmr4_device
+    type: action
+    subtype: 4_hold
+    id: B4_LP
+
+action:
+  - choose:
+      - conditions:
+          - condition: trigger
+            id: B1
+        sequence: !input button1_sp
+
+      - conditions:
+          - condition: trigger
+            id: B1_DP
+        sequence: !input button1_dp
+
+      - conditions:
+          - condition: trigger
+            id: B1_LP
+        sequence: !input button1_lp
+
+      - conditions:
+          - condition: trigger
+            id: B2
+        sequence: !input button2_sp
+
+      - conditions:
+          - condition: trigger
+            id: B2_DP
+        sequence: !input button2_dp
+
+      - conditions:
+          - condition: trigger
+            id: B2_LP
+        sequence: !input button2_lp
+
+      - conditions:
+          - condition: trigger
+            id: B3
+        sequence: !input button3_sp
+
+      - conditions:
+          - condition: trigger
+            id: B3_DP
+        sequence: !input button3_dp
+
+      - conditions:
+          - condition: trigger
+            id: B3_LP
+        sequence: !input button3_lp
+
+      - conditions:
+          - condition: trigger
+            id: B4
+        sequence: !input button4_sp
+
+      - conditions:
+          - condition: trigger
+            id: B4_DP
+        sequence: !input button4_dp
+
+      - conditions:
+          - condition: trigger
+            id: B4_LP
+        sequence: !input button4_lp
